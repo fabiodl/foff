@@ -7,9 +7,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 /**
- * Finché questa schermata è aperta, il telefono risponde ai lettori NFC
- * solo come tipo A e B (Visa/Mastercard) e non come tipo F (FeliCa).
- * Quando la schermata si chiude, tutto torna come prima.
+ * While this screen is open, the phone responds to NFC readers
+ * only as type A and B (Visa/Mastercard) and not as type F (FeliCa).
+ * When the screen closes, everything goes back to how it was.
  */
 public class MainActivity extends Activity {
 
@@ -31,11 +31,11 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if (nfc == null) {
-            text.setText("Questo telefono non ha l'NFC.");
+            text.setText("This phone does not have NFC.");
             return;
         }
         if (!nfc.isEnabled()) {
-            text.setText("L'NFC è spento. Accendilo e riapri l'app.");
+            text.setText("NFC is off. Turn it on and reopen the app.");
             return;
         }
         try {
@@ -43,11 +43,11 @@ public class MainActivity extends Activity {
                     this,
                     NfcAdapter.FLAG_READER_KEEP,
                     NfcAdapter.FLAG_LISTEN_NFC_PASSIVE_A | NfcAdapter.FLAG_LISTEN_NFC_PASSIVE_B);
-            text.setText("FeliCa (tipo F) SPENTO.\n\n"
-                    + "Tieni aperta questa schermata e avvicina il telefono al POS.\n\n"
-                    + "Chiudendo l'app tutto torna come prima.");
+            text.setText("FeliCa (type F) OFF.\n\n"
+                    + "Keep this screen open and hold the phone near the payment terminal.\n\n"
+                    + "Closing the app restores everything to how it was.");
         } catch (Exception e) {
-            text.setText("Non riesco a spegnere il tipo F su questo telefono.\n\n" + e);
+            text.setText("Unable to turn off type F on this phone.\n\n" + e);
         }
     }
 
